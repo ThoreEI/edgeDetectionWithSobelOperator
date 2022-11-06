@@ -27,6 +27,7 @@ public:
     void convertToGray(FILE * coloredPpmImage, FILE * grayedOutPpmImage) {
         if (!isFilePresent(coloredPpmImage))
             return;
+        cout << "Graying out the image..." << endl;
         readAndPrintHeaderOfPpmImage(coloredPpmImage, grayedOutPpmImage);
         int numberOfPixel = header.width * header.height;
         for (int countOfPixel = 0; countOfPixel < numberOfPixel; countOfPixel++)
@@ -40,12 +41,14 @@ public:
         }
         fclose(coloredPpmImage);
         fclose(grayedOutPpmImage);
+        cout << "Image successfully grayed out." << endl;
     }
 
     void edgeDetection(FILE * grayedOutPpmImage, FILE * edgeFilteredPpmImage) {
         if (!isFilePresent(grayedOutPpmImage))
             return;
 
+        cout << "Edge filtering the image..." << endl;
         readAndPrintHeaderOfPpmImage(grayedOutPpmImage, edgeFilteredPpmImage);
 
         // fill 2D Array with read body-information
@@ -107,16 +110,17 @@ public:
         }
         fclose(grayedOutPpmImage);
         fclose(edgeFilteredPpmImage);
+        cout << "Image successfully edge filtered." << endl;
     }
 
     static bool isFilePresent(FILE * inputFile)
     {
-
         if (inputFile != nullptr)
             return true;
-        cout << "An error occurred. Could not open the file." << endl;
+        cout << "An error occurred. Could not open the file " << endl;
         return false;
     }
+
     static void skipTheComment(FILE *inputFile) { // comments in ppm/pgm images possible
         char comment = ' ';
         while (comment != '\n')
